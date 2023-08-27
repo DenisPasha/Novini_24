@@ -37,16 +37,16 @@
                             Monday, January 1, 2045
                         </li>
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Реклама</a>
+                            <a class="nav-link text-body small" href="#">Adds</a>
                         </li>
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Контакти</a>
+                            <a class="nav-link text-body small" href="#">Contacts</a>
                         </li>
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Влез</a>
+                            <a class="nav-link text-body small" href="#">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-body small" href="#">От Света</a>
+                            <a class="nav-link text-body small" href="/index">От Българиа</a>
                         </li>
                     </ul>
                 </nav>
@@ -101,14 +101,14 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
-                    <a href="/index" class="nav-item nav-link active">Начало</a>
-                    <a href="/category" class="nav-item nav-link">Бизнес</a>
-                    <a href="/category" class="nav-item nav-link">Спорт</a>
-                    <a href="/category" class="nav-item nav-link">Технологии</a>
-                    <a href="/category" class="nav-item nav-link">Забавление</a>
-                    <a href="/category" class="nav-item nav-link">Здраве</a>
-                    <a href="/category" class="nav-item nav-link">Наука</a>
-                    <a href="/index-world" class="nav-item nav-link active">World</a>
+                    <a href="/index-world" class="nav-item nav-link active">Home</a>
+                    <a href="/category" class="nav-item nav-link">Business</a>
+                    <a href="/category" class="nav-item nav-link">Sport</a>
+                    <a href="/category" class="nav-item nav-link">Technology</a>
+                    <a href="/category" class="nav-item nav-link">Entertainment</a>
+                    <a href="/category" class="nav-item nav-link">Health</a>
+                    <a href="/category" class="nav-item nav-link">Science</a>
+                    <a href="/index" class="nav-item nav-link active">От България</a>
                 </div>
                 <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
                     <input type="text" class="form-control border-0" placeholder="Потърси">
@@ -124,27 +124,27 @@
 
 
     <!-- Main News Slider Start -->
-    <div class="container-fluid" th:object="${topHeadlinesBg}">
+    <div class="container-fluid" th:object="${everythingFromBBC}">
         <div class="row">
             <div class="col-lg-7 px-0">
                 <div class="owl-carousel main-carousel position-relative" >
-                    <div class="position-relative overflow-hidden" style="height: 500px;" th:with="article1 = ${topHeadlinesBg.getArticles().get(0)}" >
-                        <img class="img-fluid h-100" src="img/news-800x500-1.jpg" style="object-fit: cover;">
+                    <div class="position-relative overflow-hidden" style="height: 500px;" th:with="article1 = ${everythingFromBBC.getArticles().get(0)}" >
+                        <img class="img-fluid h-100" th:src="${article1.getUrlToImage()}" src="img/news-800x500-1.jpg" style="object-fit: cover;">
                         <div class="overlay">
                             <div class="mb-2">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                    href="" th:text="${article1.getAuthor()}">Business</a>
+                                    th:href="${article1.getAuthor()}">BBC</a>
                                 <a class="text-white" href="" th:text="${article1.getPublishedAt()}">Jan 01, 2045</a>
                             </div>
                             <a class="h2 m-0 text-white text-uppercase font-weight-bold" th:href="${article1.getUrl()}" th:text="${article1.getTitle()}">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
                         </div>
                     </div>
-                    <div class="position-relative overflow-hidden" style="height: 500px;" th:with="article2 = ${topHeadlinesBg.getArticles().get(1)}">
-                        <img class="img-fluid h-100" src="img/news-800x500-2.jpg" style="object-fit: cover;">
+                    <div class="position-relative overflow-hidden" style="height: 500px;" th:with="article2 = ${everythingFromBBC.getArticles().get(1)}">
+                        <img class="img-fluid h-100" th:src="${article2.getUrlToImage()}"  src="img/news-800x500-2.jpg" style="object-fit: cover;">
                         <div class="overlay">
                             <div class="mb-2">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                    href="" th:text="${article2.getAuthor()}" >Business</a>
+                                   th:href="${article2.getAuthor()}">BBC</a>
                                 <a class="text-white" href="" th:text="${article2.getPublishedAt()}">Jan 01, 2045</a>
                             </div>
                             <a class="h2 m-0 text-white text-uppercase font-weight-bold" th:href="${article2.getUrl()}"  th:text="${article2.getTitle()}">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
@@ -154,53 +154,53 @@
                 </div>
             </div>
             <div class="col-lg-5 px-0">
-                <div class="row mx-0" th:with="article3 = ${topHeadlinesBg.getArticles().get(2)}">
+                <div class="row mx-0" th:with="article3 = ${everythingFromBBC.getArticles().get(2)}">
                     <div class="col-md-6 px-0">
                         <div class="position-relative overflow-hidden" style="height: 250px;">
-                            <img class="img-fluid w-100 h-100" src="img/news-700x435-1.jpg" style="object-fit: cover;">
+                            <img class="img-fluid w-100 h-100" th:src="${article3.getUrlToImage()}"  src="img/news-700x435-1.jpg" style="object-fit: cover;">
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="" th:text="${article3.getAuthor()}"  >Business</a>
+                                       th:href="${article3.getAuthor()}">BBC</a>
                                     <a class="text-white" href="" th:text="${article3.getPublishedAt()}" ><small>Jan 01, 2045</small></a>
                                 </div>
                                 <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" th:href="${article3.getUrl()}"  th:text="${article3.getTitle()}">Lorem ipsum dolor sit amet elit...</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 px-0" th:with="article4 = ${topHeadlinesBg.getArticles().get(3)}">
+                    <div class="col-md-6 px-0" th:with="article4 = ${everythingFromBBC.getArticles().get(3)}">
                         <div class="position-relative overflow-hidden" style="height: 250px;">
-                            <img class="img-fluid w-100 h-100" src="img/news-700x435-2.jpg" style="object-fit: cover;">
+                            <img class="img-fluid w-100 h-100" th:src="${article4.getUrlToImage()}"  src="img/news-700x435-2.jpg" style="object-fit: cover;">
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="" th:text="${article4.getAuthor()}" >Business</a>
+                                       th:href="${article4.getAuthor()}">BBC</a>
                                     <a class="text-white" href="" th:text="${article4.getPublishedAt()}"><small>Jan 01, 2045</small></a>
                                 </div>
                                 <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" th:href="${article4.getUrl()}"  th:text="${article4.getTitle()}">Lorem ipsum dolor sit amet elit...</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 px-0" th:with="article5 = ${topHeadlinesBg.getArticles().get(4)}">
+                    <div class="col-md-6 px-0" th:with="article5 = ${everythingFromBBC.getArticles().get(4)}">
                         <div class="position-relative overflow-hidden" style="height: 250px;">
-                            <img class="img-fluid w-100 h-100" src="img/news-700x435-3.jpg" style="object-fit: cover;">
+                            <img class="img-fluid w-100 h-100" th:src="${article5.getUrlToImage()}"  src="img/news-700x435-3.jpg" style="object-fit: cover;">
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="" th:text="${article5.getAuthor()}" >Business</a>
+                                       th:href="${article5.getAuthor()}">BBC</a>
                                     <a class="text-white" href="" th:text="${article5.getPublishedAt()}"><small>Jan 01, 2045</small></a>
                                 </div>
                                 <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" th:href="${article5.getUrl()}"  th:text="${article5.getTitle()}">Lorem ipsum dolor sit amet elit...</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 px-0" th:with="article6 = ${topHeadlinesBg.getArticles().get(5)}">
+                    <div class="col-md-6 px-0" th:with="article6 = ${everythingFromBBC.getArticles().get(5)}">
                         <div class="position-relative overflow-hidden" style="height: 250px;">
-                            <img class="img-fluid w-100 h-100" src="img/news-700x435-4.jpg" style="object-fit: cover;">
+                            <img class="img-fluid w-100 h-100" th:src="${article6.getUrlToImage()}" src="img/news-700x435-4.jpg" style="object-fit: cover;">
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                        href="" th:text="${article6.getAuthor()}" >Business</a>
+                                       th:href="${article6.getAuthor()}">BBC</a>
                                     <a class="text-white" href="" th:text="${article6.getPublishedAt()}"><small>Jan 01, 2045</small></a>
                                 </div>
                                 <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" th:href="${article6.getUrl()}"  th:text="${article6.getTitle()}">Lorem ipsum dolor sit amet elit...</a>
@@ -221,12 +221,12 @@
                 <h4 class="m-0 text-uppercase font-weight-bold">Featured News</h4>
             </div>
             <div class="owl-carousel news-carousel carousel-item-4 position-relative" >
-                <div class="position-relative overflow-hidden" style="height: 300px;" th:each="item : ${topHeadlinesBg.getArticles()}" th:with="currentItem = ${item}">
-                    <img class="img-fluid h-100" src="img/news-700x435-1.jpg" style="object-fit: cover;">
+                <div class="position-relative overflow-hidden" style="height: 300px;" th:each="item : ${everythingFromBBC.getArticles()}" th:with="currentItem = ${item}">
+                    <img class="img-fluid h-100"  th:src="${item.getUrlToImage()}"  style="object-fit: cover;">
                     <div class="overlay" >
                         <div class="mb-2">
                             <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                href="" th:text="${currentItem.author}">Business</a>
+                               th:href="${currentItem.author}">BBC</a>
                             <a class="text-white" href="" th:text="${currentItem.getPublishedAt()}"><small>Jan 01, 2045</small></a>
                         </div>
                         <a class="h6 m-0 text-white text-uppercase font-weight-semi-bold" th:href="${currentItem.getUrl()}" th:text="${currentItem.getTitle()}">Lorem ipsum dolor sit amet elit...</a>
@@ -250,13 +250,13 @@
                                 <a class="text-secondary font-weight-medium text-decoration-none" href="">View All</a>
                             </div>
                         </div>
-                        <div class="col-lg-6" th:each="item, iterStat : ${topHeadlinesBg.getArticles()}" th:if="${iterStat.index >= 10 and iterStat.index < 14}" >
+                        <div class="col-lg-6" th:each="item, iterStat : ${everythingFromBBC.getArticles()}" th:if="${iterStat.index >= 10 and iterStat.index < 14}" >
                             <div class="position-relative mb-3">
-                                <img class="img-fluid w-100" src="img/news-700x435-1.jpg" style="object-fit: cover;">
+                                <img class="img-fluid w-100" src="img/default-news-img.jpg" th:src="${item.getUrlToImage()}" style="object-fit: cover;">
                                 <div class="bg-white border border-top-0 p-4">
                                     <div class="mb-2">
                                         <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                            href="" th:text="${item.getAuthor()}" >Business</a>
+                                           th:href="${item.author}">BBC</a>
                                         <a class="text-body"  href="" th:text="${item.getPublishedAt()}"><small>Jan 01, 2045</small></a>
                                     </div>
                                     <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" th:href="${item.getUrl()}" th:text="${item.getTitle()}">Lorem ipsum dolor sit amet elit...</a>
@@ -276,15 +276,15 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="row news-lg mx-0 mb-3" th:with="item = ${topHeadlinesBg.getArticles().get(14)}" >
+                            <div class="row news-lg mx-0 mb-3" th:with="item = ${everythingFromBBC.getArticles().get(14)}" >
                                 <div class="col-md-6 h-100 px-0">
-                                    <img class="img-fluid h-100" src="img/news-700x435-5.jpg" style="object-fit: cover;">
+                                    <img class="img-fluid h-100" src="img/default-news-img.jpg"  th:src="${item.getUrlToImage()}" style="object-fit: cover;">
                                 </div>
                                 <div class="col-md-6 d-flex flex-column border bg-white h-100 px-0">
                                     <div class="mt-auto p-4">
                                         <div class="mb-2">
                                             <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
-                                                href="" th:text="${item.getAuthor()}">Business</a>
+                                               th:href="${item.author}">BBC</a>
                                             <a class="text-body" href=""><small th:text="${item.getPublishedAt()}">Jan 01, 2045</small></a>
                                         </div>
                                         <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" th:href="${item.getUrl()}" th:text="${item.getTitle()}">Lorem ipsum dolor sit amet elit...</a>
@@ -360,9 +360,9 @@
                         <div class="section-title mb-0">
                             <h4 class="m-0 text-uppercase font-weight-bold">Tranding News</h4>
                         </div>
-                        <div class="bg-white border border-top-0 p-3" th:each="item, iterStat : ${topHeadlinesBg.getArticles()}" th:if="${iterStat.index >= 15 and iterStat.index < 18}" >
+                        <div class="bg-white border border-top-0 p-3" th:each="item, iterStat : ${everythingFromBBC.getArticles()}" th:if="${iterStat.index >= 15 and iterStat.index < 18}" >
                             <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
-                                <img class="img-fluid" src="img/news-110x110-3.jpg" alt="">
+                                <img class="img-fluid" src="img/default-news-img.jpg"  th:src="${item.getUrlToImage()}" alt="">
                                 <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
                                     <div class="mb-2">
                                         <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="" th:text="${item.getAuthor()}" >Business</a>

@@ -24,6 +24,14 @@ public class PagesController {
         return "index";
     }
 
+    @GetMapping("/index-world")
+    public String getWorld(Model model){
+
+        Articles everythingFromBBC = apiService.getEverythingFromBBC();
+        model.addAttribute("everythingFromBBC" , everythingFromBBC);
+        return "index-world";
+    }
+
     @GetMapping("/category")
     public String getCategory(Model model){
         return "category";
