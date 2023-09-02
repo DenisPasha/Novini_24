@@ -4,16 +4,17 @@ import com.example.novini_24.common.BgTopHeadlinesCategories;
 import com.example.novini_24.common.WorldTopHeadlinesCategories;
 import com.example.novini_24.model.ApiResponseDto;
 import com.example.novini_24.model.Articles;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,48 +40,149 @@ public class ApiService {
 
     public Articles getEverythingFromBBC(){
 
-        ResponseEntity<Articles> responseEntity = restTemplate.getForEntity(WorldTopHeadlinesCategories.EVERYTHING_FROM_BBC_NEWS, Articles.class);
+        ResponseEntity<Articles> responseEntity = restTemplate
+                .getForEntity(WorldTopHeadlinesCategories.EVERYTHING_FROM_BBC_NEWS, Articles.class);
         if (responseEntity.getStatusCode().is2xxSuccessful()){
 
             Articles body = responseEntity.getBody();
 
             convertDate(Objects.requireNonNull(body));
-           // checkImages(Objects.requireNonNull(body));
+           // checkImages(Objects.requireNonNull(body),responseEntity);
             return responseEntity.getBody();
         }
         throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
     }
-    private void checkImages(Articles body) {
+
+    public Articles getBusinessCategoryWorld(){
+        ResponseEntity<Articles> responseEntity = restTemplate
+                .getForEntity(WorldTopHeadlinesCategories.BUSINESS_FROM_WORLD, Articles.class);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()){
+            Articles body = responseEntity.getBody();
+            convertDate(Objects.requireNonNull(body));
+            return responseEntity.getBody();
+        }
+        throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
+    }
+
+    public Articles getSportCategoryWorld(){
+        ResponseEntity<Articles> responseEntity = restTemplate
+                .getForEntity(WorldTopHeadlinesCategories.SPORT_FROM_WORLD, Articles.class);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()){
+            Articles body = responseEntity.getBody();
+            convertDate(Objects.requireNonNull(body));
+            return responseEntity.getBody();
+        }
+        throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
+    }
+
+    public Articles getTechnologyCategoryWorld(){
+        ResponseEntity<Articles> responseEntity = restTemplate
+                .getForEntity(WorldTopHeadlinesCategories.TECHNOLOGY_FROM_WORLD, Articles.class);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()){
+            Articles body = responseEntity.getBody();
+            convertDate(Objects.requireNonNull(body));
+            return responseEntity.getBody();
+        }
+        throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
+    }
+
+    public Articles getEntertainmentCategoryWorld(){
+        ResponseEntity<Articles> responseEntity = restTemplate
+                .getForEntity(WorldTopHeadlinesCategories.ENTERTAINMENT_FROM_WORLD, Articles.class);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()){
+            Articles body = responseEntity.getBody();
+            convertDate(Objects.requireNonNull(body));
+            return responseEntity.getBody();
+        }
+        throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
+    }
+
+    public Articles getHealthCategoryWorld(){
+        ResponseEntity<Articles> responseEntity = restTemplate
+                .getForEntity(WorldTopHeadlinesCategories.HEALTH_FROM_WORLD, Articles.class);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()){
+            Articles body = responseEntity.getBody();
+            convertDate(Objects.requireNonNull(body));
+            return responseEntity.getBody();
+        }
+        throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
+    }
+    public Articles getScienceCategoryWorld(){
+        ResponseEntity<Articles> responseEntity = restTemplate
+                .getForEntity(WorldTopHeadlinesCategories.SCIENCE_FROM_WORLD, Articles.class);
+
+        if (responseEntity.getStatusCode().is2xxSuccessful()){
+            Articles body = responseEntity.getBody();
+            convertDate(Objects.requireNonNull(body));
+            return responseEntity.getBody();
+        }
+        throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
+    }
+    private void checkImages(Articles body, ResponseEntity<Articles> responseEntity) {
 
         for (ApiResponseDto article : body.getArticles()) {
             String urlToImage = article.getUrlToImage();
 
-            ResponseEntity<String> responseEntity = restTemplate.exchange(
-                    urlToImage,            // URL to check
-                    HttpMethod.GET, // HTTP method
-                    null,           // Request entity (headers, body, etc.)
-                    String.class    // Response type
-            );
-            // TODO finish this thing with the images
-            if (responseEntity.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-                urlToImage = "img/default-news-img.jpg";
-                article.setUrlToImage(urlToImage);
+            for ( ApiResponseDto response :body.getArticles()) {
+                try {
+                    ResponseEntity<?> res = restTemplate.getForEntity(urlToImage, byte[].class);
+                }catch (RestClientException e ){
+                    urlToImage = "img/default-news-img.jpg";
+                    article.setUrlToImage(urlToImage);
+                }
             }
 
         }
-
-
-
     }
+
+
 
     private void convertDate(Articles body) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
 
         for (ApiResponseDto article : body.getArticles()) {
             LocalDate publishedAt = article.getPublishedAt();
-            String format = publishedAt.format(formatter);
-            LocalDate localDate = LocalDate.parse(format ,formatter);
-            article.setPublishedAt(localDate);
+            if (publishedAt!=null){
+                String format = publishedAt.format(formatter);
+                LocalDate localDate = LocalDate.parse(format ,formatter);
+                article.setPublishedAt(localDate);
+            }
+
         }
+    }
+
+
+    public Articles checkImg(Articles everythingFromBBC) {
+        List<ApiResponseDto> filteredArticles = new ArrayList<>();
+
+        for (ApiResponseDto article : everythingFromBBC.getArticles()) {
+            if (!article.getUrlToImage().contains("webp")) {
+                filteredArticles.add(article);
+            }
+        }
+
+        everythingFromBBC.getArticles().removeAll(everythingFromBBC.getArticles());
+        everythingFromBBC.getArticles().addAll(filteredArticles);
+        Articles fileteredByImgAndTitle = checkTitle(everythingFromBBC);
+        return fileteredByImgAndTitle;
+    }
+
+    public Articles checkTitle(Articles everythingFromBBC) {
+        List<ApiResponseDto> filteredArticles = new ArrayList<>();
+
+        for (ApiResponseDto article : everythingFromBBC.getArticles()) {
+            if (article.getTitle() != null) {
+                filteredArticles.add(article);
+            }
+        }
+
+        everythingFromBBC.getArticles().removeAll(everythingFromBBC.getArticles());
+        everythingFromBBC.getArticles().addAll(filteredArticles);
+        return everythingFromBBC;
     }
 }
