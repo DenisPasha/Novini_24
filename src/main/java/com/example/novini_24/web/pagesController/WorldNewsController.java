@@ -38,6 +38,16 @@ public class WorldNewsController {
         model.addAttribute("category" , "Category: Business");
         return "category";
     }
+
+    @GetMapping("/bussines-world-single")
+    public String getBusinessSingle(Model model){
+        Articles businessCategoryWorld = apiService.getBusinessCategoryWorld();
+
+        Articles filtered = apiService.checkTitle(businessCategoryWorld);
+        model.addAttribute("categoryNews", filtered);
+        model.addAttribute("category" , "Category: Business");
+        return "single";
+    }
     @GetMapping("/sport-world")
     public String getSport(Model model){
         Articles businessCategoryWorld = apiService.getSportCategoryWorld();
