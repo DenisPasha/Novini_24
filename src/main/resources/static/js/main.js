@@ -158,6 +158,52 @@
             }
         }
     });
+
+    $(document).ready(function () {
+        // Initialize a flag to track the visibility state of comments
+        var commentsVisible = false;
+
+        // Function to toggle the comments section
+        function toggleComments() {
+            if (commentsVisible) {
+                // Hide the comments section and update the flag
+                $("#comments").addClass("d-none");
+                commentsVisible = false;
+            } else {
+                // Show the comments section and update the flag
+                $("#comments").removeClass("d-none");
+                commentsVisible = true;
+            }
+        }
+
+        // Call the toggleComments function when the button is clicked
+        $("#comment-btn").click(function () {
+            toggleComments();
+        });
+    });
+
+    $(document).ready(function () {
+        // Initialize a flag to track the visibility state of comments
+        var formVisible = false;
+
+        // Function to toggle the comments section
+        function toggleLeaveComments() {
+            if (formVisible) {
+                // Hide the comments section and update the flag
+                $("#form").addClass("d-none");
+                formVisible = false;
+            } else {
+                // Show the comments section and update the flag
+                $("#form").removeClass("d-none");
+                formVisible = true;
+            }
+        }
+
+        // Call the toggleComments function when the button is clicked
+        $("#leave-comment-btn").click(function () {
+            toggleLeaveComments();
+        });
+    });
     
 })(jQuery);
 
