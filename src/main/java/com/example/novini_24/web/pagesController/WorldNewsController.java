@@ -1,16 +1,11 @@
 package com.example.novini_24.web.pagesController;
 
-import com.example.novini_24.model.ApiResponseDto;
 import com.example.novini_24.model.Articles;
 import com.example.novini_24.service.ApiService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class WorldNewsController {
@@ -39,15 +34,6 @@ public class WorldNewsController {
         return "category";
     }
 
-    @GetMapping("/bussines-world-single")
-    public String getBusinessSingle(Model model){
-        Articles businessCategoryWorld = apiService.getBusinessCategoryWorld();
-
-        Articles filtered = apiService.checkTitle(businessCategoryWorld);
-        model.addAttribute("categoryNews", filtered);
-        model.addAttribute("category" , "Category: Business");
-        return "single";
-    }
     @GetMapping("/sport-world")
     public String getSport(Model model){
         Articles businessCategoryWorld = apiService.getSportCategoryWorld();
@@ -97,6 +83,14 @@ public class WorldNewsController {
         return "category";
     }
 
+    @GetMapping("/single-{category}")
+    public String getBusinessSingle(Model model, @PathVariable String category){
+        model.addAttribute("category" , category);
+
+        Articles singleCategoryNews = apiService.getSingleNewsForCategory(category);
+        model.addAttribute("singleCategoryNews" , singleCategoryNews);
+        return "single";
+    }
 
 
 }

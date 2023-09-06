@@ -5,6 +5,7 @@ import com.example.novini_24.common.WorldTopHeadlinesCategories;
 import com.example.novini_24.model.ApiResponseDto;
 import com.example.novini_24.model.Articles;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,7 @@ public class ApiService {
         throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
     }
 
+    @Cacheable("businessCategoryWorld")
     public Articles getBusinessCategoryWorld(){
         ResponseEntity<Articles> responseEntity = restTemplate
                 .getForEntity(WorldTopHeadlinesCategories.BUSINESS_FROM_WORLD, Articles.class);
@@ -65,6 +67,7 @@ public class ApiService {
         throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
     }
 
+    @Cacheable("sportCategoryWorld")
     public Articles getSportCategoryWorld(){
         ResponseEntity<Articles> responseEntity = restTemplate
                 .getForEntity(WorldTopHeadlinesCategories.SPORT_FROM_WORLD, Articles.class);
@@ -77,6 +80,7 @@ public class ApiService {
         throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
     }
 
+    @Cacheable("technologyCategoryWorld")
     public Articles getTechnologyCategoryWorld(){
         ResponseEntity<Articles> responseEntity = restTemplate
                 .getForEntity(WorldTopHeadlinesCategories.TECHNOLOGY_FROM_WORLD, Articles.class);
@@ -89,6 +93,7 @@ public class ApiService {
         throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
     }
 
+    @Cacheable("entertainmentCategoryWorld")
     public Articles getEntertainmentCategoryWorld(){
         ResponseEntity<Articles> responseEntity = restTemplate
                 .getForEntity(WorldTopHeadlinesCategories.ENTERTAINMENT_FROM_WORLD, Articles.class);
@@ -101,6 +106,7 @@ public class ApiService {
         throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
     }
 
+    @Cacheable("healthCategoryWorld")
     public Articles getHealthCategoryWorld(){
         ResponseEntity<Articles> responseEntity = restTemplate
                 .getForEntity(WorldTopHeadlinesCategories.HEALTH_FROM_WORLD, Articles.class);
@@ -112,6 +118,7 @@ public class ApiService {
         }
         throw new ResponseStatusException(HttpStatusCode.valueOf(responseEntity.getStatusCode().value()));
     }
+    @Cacheable("scienceCategoryWorld")
     public Articles getScienceCategoryWorld(){
         ResponseEntity<Articles> responseEntity = restTemplate
                 .getForEntity(WorldTopHeadlinesCategories.SCIENCE_FROM_WORLD, Articles.class);
@@ -184,5 +191,31 @@ public class ApiService {
         everythingFromBBC.getArticles().removeAll(everythingFromBBC.getArticles());
         everythingFromBBC.getArticles().addAll(filteredArticles);
         return everythingFromBBC;
+    }
+
+
+    public Articles getSingleNewsForCategory(String category) {
+        Articles articles = null;
+        switch (category){
+            case "sport":
+                articles = this.getSportCategoryWorld();
+                break;
+            case "business":
+                articles = this.getBusinessCategoryWorld();
+                break;
+            case "technology":
+                articles = this.getTechnologyCategoryWorld();
+                break;
+            case "entertainment":
+                articles = this.getEntertainmentCategoryWorld();
+                break;
+            case "health":
+                articles = this.getHealthCategoryWorld();
+                break;
+            case "science":
+                articles = this.getScienceCategoryWorld();
+                break;
+        }
+        return articles;
     }
 }

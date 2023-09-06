@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -13,7 +14,7 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
@@ -27,7 +28,7 @@
 
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid d-none d-lg-block">
+    <div class="container-fluid d-none d-lg-block" th:object="${category}">
         <div class="row align-items-center bg-dark px-lg-5">
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-sm bg-dark p-0">
@@ -98,7 +99,9 @@
             <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mr-auto py-0">
                     <a href="/index" class="nav-item nav-link">Home</a>
-                    <a href="/category" class="nav-item nav-link">Category</a>
+<!--                    <a th:href="@{'/single-'+ ${#strings.substring(category,10).toLowerCase()}}" class="nav-item nav-link">Single News</a>-->
+
+                    <a th:href="@{'/'+ ${category.toLowerCase()}+'-world'}" class="nav-item nav-link">Category</a>
                     <a href="/singleNews" class="nav-item nav-link active">Single News</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
@@ -146,57 +149,21 @@
 
 
     <!-- News With Sidebar Start -->
-    <div class="container-fluid">
+    <div class="container-fluid" th:each="item : ${singleCategoryNews.getArticles()}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <!-- News Detail Start -->
                     <div class="position-relative mb-3">
-                        <img class="img-fluid w-100" src="img/news-700x435-1.jpg" style="object-fit: cover;">
+                        <img class="img-fluid w-100" th:src="${item.getUrlToImage()}" style="object-fit: cover;">
                         <div class="bg-white border border-top-0 p-4">
                             <div class="mb-3">
                                 <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
                                     href="">Business</a>
-                                <a class="text-body" href="">Jan 01, 2045</a>
+                                <a class="text-body" href="" th:text="${item.getPublishedAt()}">Jan 01, 2045</a>
                             </div>
-                            <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">Lorem ipsum dolor sit amet elit vitae porta diam...</h1>
-                            <p>Sadipscing labore amet rebum est et justo gubergren. Et eirmod ipsum sit diam ut
-                                magna lorem. Nonumy vero labore lorem sanctus rebum et lorem magna kasd, stet
-                                amet magna accusam consetetur eirmod. Kasd accusam sit ipsum sadipscing et at at
-                                sanctus et. Ipsum sit gubergren dolores et, consetetur justo invidunt at et
-                                aliquyam ut et vero clita. Diam sea sea no sed dolores diam nonumy, gubergren
-                                sit stet no diam kasd vero.</p>
-                            <p>Voluptua est takimata stet invidunt sed rebum nonumy stet, clita aliquyam dolores
-                                vero stet consetetur elitr takimata rebum sanctus. Sit sed accusam stet sit
-                                nonumy kasd diam dolores, sanctus lorem kasd duo dolor dolor vero sit et. Labore
-                                ipsum duo sanctus amet eos et. Consetetur no sed et aliquyam ipsum justo et,
-                                clita lorem sit vero amet amet est dolor elitr, stet et no diam sit. Dolor erat
-                                justo dolore sit invidunt.</p>
-                            <h3 class="text-uppercase font-weight-bold mb-3">Lorem ipsum dolor sit amet elit</h3>
-                            <img class="img-fluid w-50 float-left mr-4 mb-2" src="img/news-800x500-1.jpg">
-                            <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor
-                                invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam
-                                lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor
-                                rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor
-                                sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at
-                                lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at
-                                sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos. Invidunt sed diam
-                                dolores takimata dolor dolore dolore sit. Sit ipsum erat amet lorem et, magna
-                                sea at sed et eos. Accusam eirmod kasd lorem clita sanctus ut consetetur et. Et
-                                duo tempor sea kasd clita ipsum et.</p>
-                            <h5 class="text-uppercase font-weight-bold mb-3">Lorem ipsum dolor sit amet elit</h5>
-                            <img class="img-fluid w-50 float-right mr-4 mb-2" src="img/news-800x500-2.jpg">
-                            <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor
-                                invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam
-                                lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor
-                                rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor
-                                sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at
-                                lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at
-                                sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos. Invidunt sed diam
-                                dolores takimata dolor dolore dolore sit. Sit ipsum erat amet lorem et, magna
-                                sea at sed et eos. Accusam eirmod kasd lorem clita sanctus ut consetetur et. Et
-                                duo tempor sea kasd clita ipsum et. Takimata kasd diam justo est eos erat
-                                aliquyam et ut.</p>
+                            <a class="mb-3 text-secondary text-uppercase font-weight-bold display-4" th:href="${item.getUrl()}" th:text="${item.getTitle()}"></a>
+                            <p th:text="${item.getContent()}"></p>
                         </div>
                         <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
                             <div class="d-flex align-items-center">
@@ -214,9 +181,9 @@
                     <!-- Comment List Start -->
                     <div class="mb-3">
                         <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">3 Comments</h4>
+                            <button id = "comment-btn" class="m-0 text-uppercase font-weight-bold border-0 text-lg-center">Comments</button>
                         </div>
-                        <div class="bg-white border border-top-0 p-4">
+                        <div id="comments" class="bg-white border border-top-0 p-4 d-none">
                             <div class="media mb-4">
                                 <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                 <div class="media-body">
@@ -226,26 +193,6 @@
                                     <button class="btn btn-sm btn-outline-secondary">Reply</button>
                                 </div>
                             </div>
-                            <div class="media">
-                                <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                <div class="media-body">
-                                    <h6><a class="text-secondary font-weight-bold" href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
-                                    <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
-                                        accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
-                                    <button class="btn btn-sm btn-outline-secondary">Reply</button>
-                                    <div class="media mt-4">
-                                        <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1"
-                                            style="width: 45px;">
-                                        <div class="media-body">
-                                            <h6><a class="text-secondary font-weight-bold" href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
-                                            <p>Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor
-                                                labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed
-                                                eirmod ipsum.</p>
-                                            <button class="btn btn-sm btn-outline-secondary">Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <!-- Comment List End -->
@@ -253,9 +200,9 @@
                     <!-- Comment Form Start -->
                     <div class="mb-3">
                         <div class="section-title mb-0">
-                            <h4 class="m-0 text-uppercase font-weight-bold">Leave a comment</h4>
+                            <button id = "leave-comment-btn" class="m-0 text-uppercase font-weight-bold border-0 text-lg-center">Leave a comment</button>
                         </div>
-                        <div class="bg-white border border-top-0 p-4">
+                        <div id = "form" class="bg-white border border-top-0 p-4 d-none">
                             <form>
                                 <div class="form-row">
                                     <div class="col-sm-6">
@@ -391,8 +338,8 @@
         </div>
     </div>
     <div class="container-fluid py-4 px-sm-3 px-md-5" style="background: #111111;">
-        <p class="m-0 text-center">&copy; <a href="#">Your Site Name</a>. All Rights Reserved. 
-		
+        <p class="m-0 text-center">&copy; <a href="#">Your Site Name</a>. All Rights Reserved.
+
 		<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
 		Design by <a href="https://htmlcodex.com">HTML Codex</a></p>
     </div>
