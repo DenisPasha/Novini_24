@@ -1,6 +1,5 @@
 package com.example.novini_24.web.pagesController;
 
-import com.example.novini_24.model.ApiResponseDto;
 import com.example.novini_24.model.Articles;
 import com.example.novini_24.service.ApiService;
 import org.springframework.stereotype.Controller;
@@ -37,4 +36,10 @@ public class PagesController {
     public String getContact(Model model){
         return "contact";
     }
+
+    @GetMapping("/login")
+    public String getLogin(Model model){
+        return "login";
+    }
+
 }
