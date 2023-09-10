@@ -2,6 +2,7 @@ package com.example.novini_24.web.pagesController;
 
 import com.example.novini_24.model.Articles;
 import com.example.novini_24.service.ApiService;
+import com.example.novini_24.service.UserService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PagesController {
 
     private final ApiService apiService;
+    private final UserService userService;
 
-    public PagesController(ApiService apiService) {
+    public PagesController(ApiService apiService, UserService userService) {
         this.apiService = apiService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -52,6 +55,8 @@ public class PagesController {
         if (auth2AuthenticationToken != null){
             return "redirect:/";
         }
+
+
         return "login";
     }
 
