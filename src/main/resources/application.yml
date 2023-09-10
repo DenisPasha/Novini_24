@@ -1,4 +1,11 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 377529035382-npnh7mok0dhk64dvh5c77s0dphf9d3fh.apps.googleusercontent.com
+            client-secret: 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
   thymeleaf:
     mode: HTML5
 

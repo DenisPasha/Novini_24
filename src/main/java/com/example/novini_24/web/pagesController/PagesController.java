@@ -1,8 +1,8 @@
 package com.example.novini_24.web.pagesController;
 
-import com.example.novini_24.model.ApiResponseDto;
 import com.example.novini_24.model.Articles;
 import com.example.novini_24.service.ApiService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +16,13 @@ public class PagesController {
         this.apiService = apiService;
     }
 
+    @GetMapping("/")
+    public String getHome1(Model model ){
+        Articles topHeadlinesBg = apiService.getTopHeadlinesBg();
+
+        model.addAttribute("topHeadlinesBg" , topHeadlinesBg);
+        return "index";
+    }
     @GetMapping("/index")
     public String getHome(Model model){
         Articles topHeadlinesBg = apiService.getTopHeadlinesBg();
@@ -37,4 +44,15 @@ public class PagesController {
     public String getContact(Model model){
         return "contact";
     }
+
+    @GetMapping("/login")
+    public String getLogin(Model model, OAuth2AuthenticationToken auth2AuthenticationToken){
+        OAuth2AuthenticationToken auth2AuthenticationToken1 = auth2AuthenticationToken;
+
+        if (auth2AuthenticationToken != null){
+            return "redirect:/";
+        }
+        return "login";
+    }
+
 }
