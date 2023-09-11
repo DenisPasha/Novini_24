@@ -1,11 +1,16 @@
 spring:
+  config:
+    import: secrets.yml
+
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id:
-            client-secret: 
+              client-id:
+                ${googleClientId.key}
+              client-secret:
+                ${googleClientSecret.key}
   thymeleaf:
     mode: HTML5
 
