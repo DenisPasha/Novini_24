@@ -19,11 +19,17 @@ public class PagesController {
     }
 
     @GetMapping("/")
-    public String getHome1(Model model ){
+    public String getHome1(Model model, OAuth2AuthenticationToken auth2AuthenticationToken){
+
         Articles topHeadlinesBg = apiService.getTopHeadlinesBg();
 
         model.addAttribute("topHeadlinesBg" , topHeadlinesBg);
         return "index";
+    }
+    @GetMapping("/currentUser")
+    public String getLoggedInUser(Model model, OAuth2AuthenticationToken auth2AuthenticationToken){
+        // TODO implement user db store
+        return "redirect:/";
     }
     @GetMapping("/index")
     public String getHome(Model model){
@@ -49,7 +55,6 @@ public class PagesController {
 
     @GetMapping("/login")
     public String getLogin(Model model, OAuth2AuthenticationToken auth2AuthenticationToken){
-        OAuth2AuthenticationToken auth2AuthenticationToken1 = auth2AuthenticationToken;
 
         if (auth2AuthenticationToken != null){
             return "redirect:/";
