@@ -20,7 +20,8 @@ public class OAuth2LoginSecurityConfig {
                 )
                 .oauth2Login(auth -> auth
                         .loginPage("/login")
-                        .permitAll())
+                        .permitAll()
+                        .defaultSuccessUrl("/currentUser"))
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll());
