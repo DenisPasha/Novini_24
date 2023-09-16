@@ -1,9 +1,13 @@
 package com.example.novini_24.repository;
 
-import com.example.novini_24.model.User;
+
+import com.example.novini_24.model.entities.OauthUser;
+import com.example.novini_24.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<OauthUser, Long> {
+     boolean existsByEmail(String email);
+     void save(User user);
 }
