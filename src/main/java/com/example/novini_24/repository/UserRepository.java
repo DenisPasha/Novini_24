@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<OauthUser, Long> {
      boolean existsByEmail(String email);
+     boolean existsByEmailAndPassword(String email, String password);
      void save(User user);
 }
