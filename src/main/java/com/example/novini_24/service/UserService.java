@@ -1,6 +1,7 @@
 package com.example.novini_24.service;
 
 import com.example.novini_24.config.CurrentUser;
+import com.example.novini_24.model.entities.CustomCreatedUser;
 import com.example.novini_24.model.entities.OauthUser;
 import com.example.novini_24.model.entities.User;
 import com.example.novini_24.repository.UserRepository;
@@ -35,5 +36,12 @@ public class UserService {
             userRepository.save(user);
         }
 
+    }
+
+    public void checkUser(CustomCreatedUser customCreatedUser) {
+        if (!userRepository.existsByEmailAndPassword(customCreatedUser.getEmail(), customCreatedUser.getPassword())) {
+            userRepository.save(customCreatedUser);
+        }
+        // TODO check if custom user is added to DB
     }
 }
