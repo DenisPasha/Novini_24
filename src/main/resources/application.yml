@@ -11,6 +11,18 @@ spring:
                 ${googleClientId.key}
               client-secret:
                 ${googleClientSecret.key}
+          facebook:
+              client-id:
+                ${facebookClientId.key}
+              client-secret:
+                ${facebookClientSecret.key}
+              scope:
+                - email
+                - public_profile
+
+
+
+
   thymeleaf:
     mode: HTML5
 
