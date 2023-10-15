@@ -1,6 +1,6 @@
 spring:
   config:
-    import: secrets.yml
+    import: optional:secrets.yml
 
   security:
     oauth2:
