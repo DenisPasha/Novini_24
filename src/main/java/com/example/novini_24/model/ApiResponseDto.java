@@ -14,8 +14,6 @@ public class ApiResponseDto {
     public ApiResponseDto() {
     }
 
-   
-
     public ApiResponseDto(String author, String title, String description, String url, String urlToImage, LocalDate publishedAt, String content) {
         this.author = author;
         this.title = title;
