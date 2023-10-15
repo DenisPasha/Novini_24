@@ -2,6 +2,7 @@ package com.example.novini_24.common;
 
 public enum BgTopHeadlinesCategories {
 
+    
     ;
     private static final String API_KEY = "d683292684f54234be0ff4bef37df89f";
     public static final String TOP_HEADLINE_FROM_BG = String.format("https://newsapi.org/v2/top-headlines?country=bg&apiKey=%s",API_KEY);
