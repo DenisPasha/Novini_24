@@ -2,6 +2,7 @@ package com.example.novini_24.model;
 
 import java.time.LocalDate;
 
+
 public class ApiResponseDto {
    private String author;
    private String title;
