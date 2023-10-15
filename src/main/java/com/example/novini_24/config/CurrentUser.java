@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 @Configuration
 public class CurrentUser {
 
-    
     @Bean
     @Lazy
     public UserDto getCurrentUser(){
