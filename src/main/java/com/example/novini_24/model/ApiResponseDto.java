@@ -60,4 +60,6 @@ public class ApiResponseDto {
     public void setUrlToImage(String urlToImage) {
         this.urlToImage = urlToImage;
     }
+
+   
 }
