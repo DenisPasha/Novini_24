@@ -8,6 +8,7 @@ class Novini24ApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
