@@ -15,9 +15,13 @@ public abstract class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    public User(String username, String email) {
+    @Column(name = "password")
+    private String password;
+
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
     public User() {
@@ -46,5 +50,9 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

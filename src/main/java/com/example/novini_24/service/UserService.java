@@ -2,7 +2,6 @@ package com.example.novini_24.service;
 
 import com.example.novini_24.config.CurrentUser;
 import com.example.novini_24.model.entities.CustomCreatedUser;
-import com.example.novini_24.model.entities.OauthUser;
 import com.example.novini_24.model.entities.User;
 import com.example.novini_24.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -26,7 +25,7 @@ public class UserService {
 
     public void checkUser(OAuth2AuthenticationToken auth2AuthenticationToken) {
 
-        User user = new OauthUser();
+        User user = new CustomCreatedUser();
         user.setUserName(auth2AuthenticationToken.getPrincipal().getAttribute("name"));
         user.setEmail(auth2AuthenticationToken.getPrincipal().getAttribute("email"));
 
@@ -38,7 +37,7 @@ public class UserService {
 
     }
 
-    public void checkUser(CustomCreatedUser customCreatedUser) {
+    public void checkUser(User customCreatedUser) {
         if (!userRepository.existsByEmailAndPassword(customCreatedUser.getEmail(), customCreatedUser.getPassword())) {
             userRepository.save(customCreatedUser);
         }
