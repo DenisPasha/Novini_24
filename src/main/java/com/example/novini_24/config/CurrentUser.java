@@ -17,6 +17,7 @@ public class CurrentUser {
     public UserDto getCurrentUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        
         if (authentication != null){
             Object principal = authentication.getPrincipal();
             if (principal instanceof OAuth2AuthenticatedPrincipal){
