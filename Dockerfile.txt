@@ -1,0 +1,21 @@
+# Use a base image with Java installed
+FROM openjdk:8-jre
+
+# Set the JIRA_HOME environment variable
+ENV JIRA_HOME /var/atlassian/jira/application-data/
+
+# Set the working directory in the container
+WORKDIR /opt/atlassian/jira/atlassian-jira-software-9.15.0-standalone
+
+# Download the Jira Software distribution
+RUN apt-get update && apt-get install -y wget \
+    && wget https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-software-9.15.0.tar.gz \
+    && tar -xzvf atlassian-jira-software-9.15.0.tar.gz \
+    && rm atlassian-jira-software-9.15.0.tar.gz \
+    && apt-get remove -y wget && apt-get autoremove -y
+
+# Expose the default HTTP port for accessing Jira
+EXPOSE 8080
+
+# Start Jira Software
+CMD ["/opt/atlassian/jira/atlassian-jira-software-9.15.0-standalone/atlassian-jira-software-9.15.0-standalone/bin/start-jira.sh", "-fg"]

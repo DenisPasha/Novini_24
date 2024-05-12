@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  postgresql:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: denispasha
+      POSTGRES_PASSWORD: Denis125963
+      POSTGRES_DB: jiradb
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgresql_data:/var/lib/postgresql/data
+
+  jira:
+    build:
+      context: .
+      dockerfile: Dockerfile.txt
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+    environment:
+      JIRA_HOME: /var/atlassian/jira
+      JIRA_DB_TYPE: postgresql
+      JIRA_DB_HOST: postgresql
+      JIRA_DB_PORT: 5432
+      JIRA_DB_NAME: jiradb
+      JIRA_DB_USERNAME: denispasha
+      JIRA_DB_PASSWORD: Denis125963
+
+volumes:
+  postgresql_data:
